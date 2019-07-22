@@ -20,6 +20,16 @@ router.get('/prompts', (req, res, next) => {
     .catch(err => handle(err, res))
 })
 
+router.get('/prompts/:id', (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  Prompts.findById(req.params.id)
+    .then(handle404)
+    // if `findById` is succesful, respond with 200 and "example" JSON
+    .then(prompt => res.status(200).json({ prompt: prompt.toObject() }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+
 router.post('/prompts', requireToken, (req, res, next) => {
   // set owner of new example to be current user
   req.body.prompt.owner = req.user.id
@@ -37,16 +47,16 @@ router.post('/prompts', requireToken, (req, res, next) => {
 
 // DESTROY
 // DELETE /examples/5a7db6c74d55bc51bdf39793
-router.delete('/prompts/:id', requireToken, (req, res, next) => {
+router.delete('/prompts/:id', (req, res, next) => {
   Prompts.findById(req.params.id)
     .then(handle404)
-    .then(prompt => {
-      // throw an error if current user doesn't own `example`
-      requireOwnership(req, prompt)
-
-      // delete the example ONLY IF the above didn't throw
-      prompt.remove()
-    })
+    // .then(prompt => {
+    //   // throw an error if current user doesn't own `example`
+    //   // requireOwnership(req, prompt)
+    //
+    //   // delete the example ONLY IF the above didn't throw
+    //   prompt.remove()
+    // })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
     // if an error occurs, pass it to the handler
