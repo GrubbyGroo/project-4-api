@@ -47,16 +47,16 @@ router.post('/prompts', requireToken, (req, res, next) => {
 
 // DESTROY
 // DELETE /examples/5a7db6c74d55bc51bdf39793
-router.delete('/prompts/:id', (req, res, next) => {
+router.delete('/prompts/:id', requireToken, (req, res, next) => {
   Prompts.findById(req.params.id)
     .then(handle404)
-    // .then(prompt => {
-    //   // throw an error if current user doesn't own `example`
-    //   // requireOwnership(req, prompt)
-    //
-    //   // delete the example ONLY IF the above didn't throw
-    //   prompt.remove()
-    // })
+    .then(prompt => {
+      // throw an error if current user doesn't own `example`
+      // requireOwnership(req, prompt)
+
+      // delete the example ONLY IF the above didn't throw
+      prompt.remove()
+    })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
     // if an error occurs, pass it to the handler
