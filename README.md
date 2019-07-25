@@ -103,7 +103,8 @@ The RESTful routes are described below.
 | PATCH  | /prompts/:id     | app.patch()/update          |
 | DELETE | /prompts/:id     | app.delete()/destroy        |
 
+----
 
-    ## ERD
+ ## ERD
 
-    ![imgur](https://i.imgur.com/NGjXpDX.png)
+ ![imgur](https://i.imgur.com/NGjXpDX.png)
