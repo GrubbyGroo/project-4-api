@@ -62,14 +62,47 @@ Upon creation of a prompt, the prompt entry is added to MongoDB hosted by Heroku
 -   Implement a practice timer, to allow users to draw for a set period of   time, and have an alert go off upon time end
 -   Allow users to upload their drawings so they have a central place to see their works, and watch their progress
 
-# Project User Stories and Wireframes
+Models
+------
+Below are the basic structure of both the USER and UPLOAD models used in the back-end:
 
--   As a User I want to be able to see random prompts
--   As a User I want to be able to select a practice timer for the random prompt
--   As a User I want to add my own prompts
--   As a User I want to edit my added prompt
--   As a User I want to be able to deleted my added prompts
--   As a User I want to be able to see all of my added prompts
+#### USER
+| Field          | Type      | Required | Unique | Notes                                  |
+|----------------|-----------|----------|--------|----------------------------------------|
+| email          | String    | true     | true   |                                        |
+| hashedPassword | String    | true     | true   |                                        |
+| token          | String    | true     |        |                                        |
+| timestamps     | timestamp |          |        | Populated automatically                |
+| toObject       | Object    |          |        | Removes hashed password upon retrieval |
+
+#### Prompt
+| Field       | Type                           | Required | Notes                   |
+|-------------|--------------------------------|----------|-------------------------|
+| text        | String                         | true    |                         |
+| category         | String                    | true     |                         |
+| description | String                         | false    |                         |
+| owner       | mongoose.Schema.Types.ObjectId | true     | References User         |
+| timestamps  | timestamp                      |          | Populated automatically |
+
+Routes
+------
+The RESTful routes are described below.
+#### USER
+| Verb   | URI Pattern      | Method/Action               |
+|--------|------------------|-----------------------------|
+| POST   | /sign-up         | app.post()/sign-up          |
+| POST   | /sign-in         | app.post()/sign-in          |
+| PATCH  | /change-password | app.patch()/change-password |
+| DELETE | /sign-out        | app.delete()/sign-out       |
+
+#### PROMPTS
+| Verb   | URI Pattern      | Method/Action               |
+|--------|------------------|-----------------------------|
+| POST   | /prompts         | app.post()/create           |
+| GET    | /uploads         | app.post()/index            |
+| PATCH  | /prompts/:id     | app.patch()/update          |
+| DELETE | /prompts/:id     | app.delete()/destroy        |
+
 
     ## ERD
 
