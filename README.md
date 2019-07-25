@@ -3,7 +3,6 @@
 # Connected Sites
 
 -   Front-End Repo: <https://github.com/DiGregorioC/project-4-client>
--   Application: <https://github.com/DiGregorioC/project-4-client>
 -   Deployed Site: <https://digregorioc.github.io/project-4-client/>
 -   Heroku Site: <https://protected-chamber-86780.herokuapp.com/>
 
@@ -72,4 +71,6 @@ Upon creation of a prompt, the prompt entry is added to MongoDB hosted by Heroku
 -   As a User I want to be able to deleted my added prompts
 -   As a User I want to be able to see all of my added prompts
 
-    ## WireFrame
+    ## ERD
+
+    ![imgur](https://i.imgur.com/NGjXpDX.png)
