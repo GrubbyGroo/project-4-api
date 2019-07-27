@@ -52,7 +52,7 @@ router.delete('/prompts/:id', requireToken, (req, res, next) => {
     .then(handle404)
     .then(prompt => {
       // throw an error if current user doesn't own `example`
-      // requireOwnership(req, prompt)
+      requireOwnership(req, prompt)
 
       // delete the example ONLY IF the above didn't throw
       prompt.remove()
